@@ -1,2 +1,5 @@
-rootProject.name = 'go'
+rootProject.name = 'orego'
 
+include 'core'
+include 'cli-game'
+include 'cli-experiments'
