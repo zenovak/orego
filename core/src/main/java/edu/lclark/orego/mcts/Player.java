@@ -124,6 +124,7 @@ public final class Player {
 		stopThreads();
 		final short move = book.nextMove(board);
 		if (move != NO_POINT) {
+			log("Returning book move");
 			return move;
 		}
 		if (cleanupMode) {

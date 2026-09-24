@@ -131,6 +131,7 @@ public final class PlayerBuilder {
 		result.setCoupDeGrace(coupDeGrace);
 		log("About to create opening book");
 		if (book && width == 19) {
+			log("Initialized with Opening book");
 			result.setOpeningBook(new FusekiBook());
 		} else {
 			result.setOpeningBook(new DoNothing());

@@ -26,7 +26,7 @@ public final class FusekiBook implements OpeningBook {
 	@SuppressWarnings("boxing")
 	public FusekiBook(String directory) {
 		try (ObjectInputStream in = new ObjectInputStream(
-			getClass().getResourceAsStream("/" + directory + "/" + "fuseki19.data")
+			getClass().getClassLoader().getResourceAsStream(directory + "/" + "fuseki19.data")
 		)) {
 			maxMoves = (Integer) in.readObject();
 			book = (SmallHashMap) in.readObject();
