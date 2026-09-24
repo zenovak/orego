@@ -17,7 +17,7 @@ public final class ShapeTable implements Serializable {
 	}
 
 	/** This creates a ShapeTable filled with data from the specified file.
-	 * @param filePath resource string path to the patterns. example /patterns/3stones-SHAPE-sf999.data
+	 * @param filePath resource string path to the patterns. example /patterns/patterns3stones-SHAPE-sf999.data
 	 */
 	public ShapeTable(String filePath, float scalingFactor) {
 		float[][] fake = null;

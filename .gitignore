@@ -27,3 +27,7 @@ config/quit.txt
 
 # Build artifacts
 build
+
+# IDE
+.gradle/
+.idea/
