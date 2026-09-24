@@ -1,10 +1,10 @@
 package edu.lclark.orego.experiment;
 
+import edu.lclark.orego.util.Logging;
+
 import static java.io.File.separator;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /** Plays a series of experimental games on one machine. */
 public final class GameBatch implements Runnable {
@@ -21,7 +21,7 @@ public final class GameBatch implements Runnable {
 		if (args.length >= 2) {
 			results = args[1];
 		} else {
-			results = SystemConfiguration.SYSTEM.resultsDirectory + timeStamp(true) + separator;
+			results = SystemConfiguration.SYSTEM.resultsDirectory + Logging.timeStamp(true) + separator;
 		}
 		new File(results).mkdir();
 		try {
@@ -32,25 +32,6 @@ public final class GameBatch implements Runnable {
 			e.printStackTrace(System.out);
 			System.exit(1);
 		}
-	}
-
-	/**
-	 * Returns a String representing the current date and time.
-	 *
-	 * @param nest
-	 *            If true, use File.separator instead of dashes to separate
-	 *            year, month, date, and time.
-	 */
-	public static String timeStamp(boolean nest) {
-		String punctuation;
-		if (nest) {
-			punctuation = File.separator;
-		} else {
-			punctuation = "-";
-		}
-		return new SimpleDateFormat("yyyy" + punctuation + "MM" + punctuation
-				+ "dd" + punctuation + "HH:mm:ss.SSS").format(new Date(System
-				.currentTimeMillis()));
 	}
 
 	/** Number of the batch (used as part of the filename). */
@@ -100,7 +81,7 @@ public final class GameBatch implements Runnable {
 		final int[] wins = new int[3];
 		for (int i = 0; i < ExperimentConfiguration.EXPERIMENT.gamesPerColor; i++) {
 			final String outFile = resultsDirectory + host + "-b" + batchNumber + "-"
-					+ timeStamp(false) + ".sgf";
+					+ Logging.timeStamp(false) + ".sgf";
 			final Game game = new Game(outFile, ExperimentConfiguration.EXPERIMENT.rules, black, white);
 			wins[game.play().index()]++;
 		}

@@ -5,7 +5,7 @@ import static edu.lclark.orego.core.CoordinateSystem.PASS;
 import static edu.lclark.orego.core.Legality.OK;
 import static edu.lclark.orego.core.NonStoneColor.*;
 import static edu.lclark.orego.core.StoneColor.*;
-//import static edu.lclark.orego.experiment.Logging.*;
+import static edu.lclark.orego.util.Logging.log;
 
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -18,7 +18,6 @@ import edu.lclark.orego.core.Color;
 import edu.lclark.orego.core.CoordinateSystem;
 import edu.lclark.orego.core.Legality;
 import edu.lclark.orego.core.StoneColor;
-//import edu.lclark.orego.experiment.Logging;
 import edu.lclark.orego.feature.HistoryObserver;
 import edu.lclark.orego.score.FinalScorer;
 import edu.lclark.orego.time.TimeManager;
@@ -151,7 +150,7 @@ public final class Player {
 			// Time left signal was received
 			timeManager.startNewTurn();
 			msecPerMove = timeManager.getMsec();
-//			log("Allocating " + msecPerMove + " msec");
+			log("Allocating " + msecPerMove + " msec");
 			do {
 				startThreads();
 				try {
@@ -168,7 +167,7 @@ public final class Player {
 		for (McRunnable runnable : runnables) {
 			playouts += runnable.getPlayoutsCompleted();
 		}
-//		Logging.log("Turn : " + board.getTurn() + " Playouts : " + playouts);
+		log("Turn : " + board.getTurn() + " Playouts : " + playouts);
 		return descender.bestPlayMove();
 	}
 
@@ -223,11 +222,11 @@ public final class Player {
 	 * board. Returns true if any such moves were found.
 	 */
 	private boolean findCleanupMoves() {
-//		log("Finding cleanup moves");
+		log("Finding cleanup moves");
 		final ShortSet enemyDeadChains = findDeadStones(1.0, board
 				.getColorToPlay().opposite());
-//		log("Dead stones: "
-//				+ enemyDeadChains.toString(board.getCoordinateSystem()));
+		log("Dead stones: "
+				+ enemyDeadChains.toString(board.getCoordinateSystem()));
 		if (enemyDeadChains.size() == 0) {
 			return false;
 		}
@@ -297,7 +296,7 @@ public final class Player {
 			startThreads();
 		}
 		// Return the list of dead stones
-//		log("Dead stones: " + deadStones.toString(board.getCoordinateSystem()));
+		log("Dead stones: " + deadStones.toString(board.getCoordinateSystem()));
 		return deadStones;
 	}
 
@@ -436,10 +435,10 @@ public final class Player {
 	/** Starts the McRunnables' threads. */
 	private void startThreads() {
 		if (keepRunning) {
-//			log("Threads were already running");
+			log("Threads were already running");
 			return; // If the threads were already running, do nothing
 		}
-//		log("Starting threads");
+		log("Starting threads");
 		SearchNode root = getRoot();
 		if (!root.biasUpdated()) {
 			getMcRunnable(0).copyDataFrom(board);
@@ -458,10 +457,10 @@ public final class Player {
 	/** Stops the McRunnables' threads. */
 	private void stopThreads() {
 		if (!keepRunning) {
-//			log("Threads were already stopped");
+			log("Threads were already stopped");
 			return; // If the threads were not running, do nothing
 		}
-//		log("Stopping threads");
+		log("Stopping threads");
 		try {
 			keepRunning = false;
 			latch.await();
@@ -525,7 +524,7 @@ public final class Player {
 				liveStones.add(p);
 			}
 		}
-//		log("Live stones: " + liveStones.toString(board.getCoordinateSystem()));
+		log("Live stones: " + liveStones.toString(board.getCoordinateSystem()));
 		return liveStones;
 	}
 

@@ -2,6 +2,8 @@ package edu.lclark.orego.mcts;
 
 import static edu.lclark.orego.core.Legality.OK;
 import static edu.lclark.orego.core.NonStoneColor.VACANT;
+import static edu.lclark.orego.util.Logging.log;
+
 import edu.lclark.orego.core.Board;
 import edu.lclark.orego.core.Color;
 import edu.lclark.orego.core.CoordinateSystem;
@@ -21,7 +23,6 @@ import edu.lclark.orego.score.PlayoutScorer;
 import edu.lclark.orego.thirdparty.MersenneTwisterFast;
 import edu.lclark.orego.util.ShortList;
 import edu.lclark.orego.util.ShortSet;
-//import static edu.lclark.orego.experiment.Logging.*;
 
 /**
  * Players use this class to perform multiple Monte Carlo runs in different
@@ -282,7 +283,7 @@ public final class McRunnable implements Runnable {
 		while (getPlayer().shouldKeepRunning()) {
 			performMcRun();
 		}
-//		log("Playouts completed: " + playoutsCompleted);
+		log("Playouts completed: " + playoutsCompleted);
 		player.notifyMcRunnableDone();
 	}
 

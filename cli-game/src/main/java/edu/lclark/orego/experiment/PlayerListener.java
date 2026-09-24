@@ -1,5 +1,7 @@
 package edu.lclark.orego.experiment;
 
+import edu.lclark.orego.util.Logging;
+
 import java.io.InputStream;
 import java.util.Scanner;
 

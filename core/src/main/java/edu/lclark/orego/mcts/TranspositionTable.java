@@ -1,8 +1,9 @@
 package edu.lclark.orego.mcts;
 
 import static edu.lclark.orego.core.SuperKoTable.IGNORE_SIGN_BIT;
+import static edu.lclark.orego.util.Logging.log;
+
 import edu.lclark.orego.core.CoordinateSystem;
-//import edu.lclark.orego.experiment.Logging;
 import edu.lclark.orego.util.ListNode;
 import edu.lclark.orego.util.Pool;
 
@@ -130,7 +131,7 @@ public final class TranspositionTable {
 	 * pool).
 	 */
 	void sweep() {
-//		Logging.log("Nodes in use " + nodesInUse + "/" + table.length + " (" + (nodesInUse* 100)/table.length  + "%)");
+		log("Nodes in use " + nodesInUse + "/" + table.length + " (" + (nodesInUse* 100)/table.length  + "%)");
 		for (int i = 0; i < table.length; i++) {
 			final SearchNode node = table[i];
 			if (node.isInUse()) {

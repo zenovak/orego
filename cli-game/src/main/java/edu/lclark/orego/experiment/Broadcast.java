@@ -1,6 +1,7 @@
 package edu.lclark.orego.experiment;
 
-import static edu.lclark.orego.experiment.GameBatch.timeStamp;
+import edu.lclark.orego.util.Logging;
+
 import static edu.lclark.orego.experiment.PropertyPaths.OREGO_ROOT;
 import static edu.lclark.orego.experiment.SystemConfiguration.SYSTEM;
 import static java.io.File.separator;
@@ -45,7 +46,7 @@ public final class Broadcast {
 				* ExperimentConfiguration.EXPERIMENT.rules.time * 2
 				/ (SYSTEM.hosts.size() * ExperimentConfiguration.EXPERIMENT.gamesPerHost * 3600.0));
 		final String resultsDirectory = SYSTEM.resultsDirectory
-				+ timeStamp(true) + separator;
+				+ Logging.timeStamp(true) + separator;
 		System.out
 				.println("Launching broadcast experiment. Results will be stored in "
 						+ resultsDirectory);

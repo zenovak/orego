@@ -1,9 +1,10 @@
 package edu.lclark.orego.mcts;
 
-//import static edu.lclark.orego.experiment.Logging.*;
 import static edu.lclark.orego.core.CoordinateSystem.NO_POINT;
 import static edu.lclark.orego.core.CoordinateSystem.PASS;
 import static edu.lclark.orego.core.CoordinateSystem.RESIGN;
+import static edu.lclark.orego.util.Logging.log;
+
 import edu.lclark.orego.core.Board;
 import edu.lclark.orego.thirdparty.MersenneTwisterFast;
 import edu.lclark.orego.util.ShortList;
@@ -43,7 +44,7 @@ public abstract class AbstractDescender implements TreeDescender {
 			// illegal (e.g., because it was never actually tried in a playout),
 			// throw it out
 			if (result != PASS) {
-//				log("Rejected " + board.getCoordinateSystem().toString(result) + " as illegal");
+				log("Rejected " + board.getCoordinateSystem().toString(result) + " as illegal");
 				root.exclude(result);
 				result = PASS;
 			}
@@ -59,7 +60,7 @@ public abstract class AbstractDescender implements TreeDescender {
 		if (root.getWinRate(result) < RESIGN_PARAMETER) {
 			return RESIGN;
 		}
-//		log("Selected " + board.getCoordinateSystem().toString(result) + " with " + root.getWins(result) + " wins in " + root.getRuns(result) + " runs");
+		log("Selected " + board.getCoordinateSystem().toString(result) + " with " + root.getWins(result) + " wins in " + root.getRuns(result) + " runs");
 		return result;
 	}
 
