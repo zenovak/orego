@@ -1,9 +1,7 @@
 package edu.lclark.orego.feature;
 
 import static edu.lclark.orego.core.NonStoneColor.VACANT;
-//import static edu.lclark.orego.experiment.PropertyPaths.OREGO_ROOT;
 
-//import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
 import edu.lclark.orego.core.Board;
@@ -47,8 +45,7 @@ public final class PatternSuggester implements Suggester {
 		moves = new ShortSet(coords.getFirstPointBeyondBoard());
 
 		try (ObjectInputStream objectInputStream = new ObjectInputStream(
-//				new FileInputStream(OREGO_ROOT + "patterns/patterns3x3.data") eclipse way
-				getClass().getResourceAsStream("/patterns/patterns3x3.data")
+				getClass().getClassLoader().getResourceAsStream("patterns/patterns3x3.data")
 		)) {
 			final int[] fileRuns = (int[]) objectInputStream.readObject();
 			final int[] fileWins = (int[]) objectInputStream.readObject();
@@ -57,7 +54,6 @@ public final class PatternSuggester implements Suggester {
 				goodPatterns.set(i,
 						(float) fileWins[i] / (float) fileRuns[i] > THRESHOLD);
 			}
-			objectInputStream.close();
 		} catch (final Exception e) {
 			e.printStackTrace();
 			System.exit(1);
