@@ -3,6 +3,8 @@ package edu.lclark.orego.sgf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 import edu.lclark.orego.core.Board;
@@ -44,27 +46,39 @@ public class SgfParserTest {
 
 	@SuppressWarnings("boxing")
 	@Test
-	public void testSgfToMoves() {
-		final List<List<Short>> games = parser.parseGamesFromFile(new File(
-				"sgf-test-files/19/1977-02-27.sgf"), 500);
+	public void testSgfToMoves() throws URISyntaxException {
+		URL url = getClass().getClassLoader().getResource("sgf-test-files/19/1977-02-27.sgf");
+		final List<List<Short>> games = parser.parseGamesFromFile(new File(url.toURI()), 500);
 		assertEquals(1, games.size());
 		final List<Short> game = games.get(0);
 		assertEquals(180, game.size());
 		assertEquals(coords.at("R16"), (short) game.get(0));
 		assertEquals(coords.at("N11"), (short) game.get(179));
 	}
+
+	@Test
+	public void testSgfToMovesPrint() throws URISyntaxException {
+		URL url = getClass().getClassLoader().getResource("sgf-test-files/19/1977-02-27.sgf");
+		final List<List<Short>> games = parser.parseGamesFromFile(new File(url.toURI()), 179);
+		for (final List<Short> game : games) {
+			for (final Short move : game) {
+				System.out.println(coords.toString(move));
+			}
+		}
+	}
 	
 	@Test
-	public void testBreakOnPass(){
-		List<Short> moves = parser.parseGameFromFile(new File("sgf-test-files/19/Orego4-Magisus.sgf"));
+	public void testBreakOnPass() throws URISyntaxException {
+		URL url = getClass().getClassLoader().getResource("sgf-test-files/19/Orego4-Magisus.sgf");
+		List<Short> moves = parser.parseGameFromFile(new File(url.toURI()));
 		assertEquals(174, moves.size());
 		parser = new SgfParser(coords, false);
-		moves = parser.parseGameFromFile(new File("sgf-test-files/19/Orego4-Magisus.sgf"));
+		moves = parser.parseGameFromFile(new File(url.toURI()));
 		assertEquals(254, moves.size());
 	}
 	
 	@Test
-	public void testCgtc(){
+	public void testCgtc() throws URISyntaxException {
 		String[] diagram = {
 				"...................",
 				"..........#........",
@@ -86,7 +100,8 @@ public class SgfParserTest {
 				"...................",
 				"...................",
 		};
-		parser.sgfToBoard("sgf-test-files/19/blunder.1.sgf", board);
+		URL url = getClass().getClassLoader().getResource("sgf-test-files/19/blunder.1.sgf");
+		parser.sgfToBoard(new File(url.toURI()), board);
 		assertEquals(StoneColor.BLACK, board.getColorToPlay());
 		assertEquals(TestingTools.asOneString(diagram), board.toString());
 	}
