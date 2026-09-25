@@ -11,7 +11,11 @@ public final class SgfWriter {
 		return "" + "abcdefghijklmnopqrs".charAt(i);
 	}
 
-	/** Returns the SGF coordinates for p, including "" for pass. */
+	/**
+	 * Returns the SGF coordinates for p, including "" for pass.
+	 * @param p the play in Orego's short notation
+	 * @param coords the corresponding game's coords instance
+	 */
 	public static String toSgf(short p, CoordinateSystem coords) {
 		if (p == PASS) {
 			return "";

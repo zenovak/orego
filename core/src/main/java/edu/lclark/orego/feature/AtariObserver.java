@@ -12,7 +12,7 @@ import edu.lclark.orego.core.StoneColor;
 import edu.lclark.orego.util.ShortList;
 import edu.lclark.orego.util.ShortSet;
 
-/** Tracks all of the chains currently in atari for each color. */
+/** Tracks all the chains currently in atari for each color. */
 @SuppressWarnings("serial")
 public final class AtariObserver implements BoardObserver {
 
