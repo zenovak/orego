@@ -285,6 +285,10 @@ public final class Board implements Serializable {
 		return points[p].color;
 	}
 
+	public Color getColorAt(int row, int col) {
+		return points[coords.at(row, col)].color;
+	}
+
 	/** Returns the color to play next. */
 	public StoneColor getColorToPlay() {
 		return colorToPlay;
@@ -564,6 +568,16 @@ public final class Board implements Serializable {
 	 */
 	public Legality play(String move) {
 		return play(coords.at(move));
+	}
+
+	/**
+	 * Convenience method for playing via row, col notations
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	public Legality play(int row, int col) {
+		return play(coords.at(row, col));
 	}
 
 	/**

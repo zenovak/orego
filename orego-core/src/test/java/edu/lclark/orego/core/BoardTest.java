@@ -128,6 +128,27 @@ public class BoardTest {
 	}
 
 	@Test
+	public void testSuicideCapture() {
+		String[] before = {
+				"#####",
+				"#OOO#",
+				"#O.O#",
+				"#OOO#",
+				"#####",
+		};
+		board.setUpProblem(before, BLACK);
+		assertEquals(OK, board.play("c3"));
+		String[] after = {
+				"#####",
+				"#...#",
+				"#.#.#",
+				"#...#",
+				"#####",
+		};
+		assertEquals(asOneString(after), board.toString());
+	}
+
+	@Test
 	public void testSimpleKo() {
 		String[] before = {
 				".....",
