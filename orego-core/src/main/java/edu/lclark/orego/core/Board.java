@@ -686,6 +686,18 @@ public final class Board implements Serializable {
 		return result;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
+	public BoardRecord toBoardRecord() {
+		Color[] pieces = new Color[points.length];
+		for (int i = 0; i < points.length; i++) {
+			pieces[i] = points[i].color;
+		}
+		return new BoardRecord(this.coords, pieces);
+	}
+
 	public void removeStones(ShortSet ourDead) {
 		for(int i = 0; i < ourDead.size(); i++){
 			points[ourDead.get(i)].color = VACANT;
