@@ -29,6 +29,13 @@ public final class Board implements Serializable {
 	private final static String[] HANDICAP_LOCATIONS = { "d4", "q16", "q4",
 			"d16", "k10", "d10", "q10", "k4", "k16" };
 
+	private final static String[] HANDICAP_LOCATIONS_13 = {
+			"k4", "d10", "k10", "d4", "g7"
+	};
+	private final static String[] HANDICAP_LOCATIONS_9 = {
+			"g7", "c3", "g3", "c7", "e5"
+	};
+
 	/** Stones captured by the last move. */
 	private final ShortList capturedStones;
 
@@ -638,15 +645,53 @@ public final class Board implements Serializable {
 	}
 
 	public void setUpHandicap(int handicapSize) {
-		clear();
-		for (int i = 0; i < handicapSize; i++) {
-			if ((handicapSize == 6 || handicapSize == 8) && i == 4) {
-				i++;
-				handicapSize++;
-			}
-			placeInitialStone(BLACK, coords.at(HANDICAP_LOCATIONS[i]));
+		if (handicapSize > getMaxHandicap()) {
+			throw new IllegalArgumentException(
+					"Cannot set more handicapStones than allowed max: " + getMaxHandicap()
+			);
 		}
+
+			clear();
+		switch (coords.getWidth()) {
+			case 19: {
+				for (int i = 0; i < handicapSize; i++) {
+					if ((handicapSize == 6 || handicapSize == 8) && i == 4) {
+						i++;
+						handicapSize++;
+					}
+					placeInitialStone(BLACK, coords.at(HANDICAP_LOCATIONS[i]));
+				}
+				break;
+			}
+			case 9: {
+				for (int i = 0; i < handicapSize; i++) {
+					placeInitialStone(BLACK, coords.at(HANDICAP_LOCATIONS_9[i]));
+				}
+				break;
+			}
+			case 13: {
+				for (int i = 0; i < handicapSize; i++) {
+					placeInitialStone(BLACK, coords.at(HANDICAP_LOCATIONS_13[i]));
+				}
+				break;
+			}
+		}
+
+
 		setColorToPlay(WHITE);
+	}
+
+	public int getMaxHandicap() {
+		switch (coords.getWidth()) {
+			case 9, 13:
+				return HANDICAP_LOCATIONS_9.length;
+
+			case 19:
+				return HANDICAP_LOCATIONS.length;
+
+			default:
+				return 0;
+		}
 	}
 
 	/**

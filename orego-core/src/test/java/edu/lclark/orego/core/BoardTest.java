@@ -532,6 +532,13 @@ public class BoardTest {
 	}
 
 	@Test
+	public void testSetUpHandicap2() {
+		board = new Board(9);
+		board.setUpHandicap(2);
+		System.out.println(board.toString());
+	}
+
+	@Test
 	public void testFancyHash9() {
 		// Debugging test; this board appeared to be returning a fancy hash of 0L
 		String[] diagram = new String[] {
