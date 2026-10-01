@@ -11,7 +11,6 @@ import edu.lclark.orego.util.ShortList;
 /** Keeps track of how many stones there are of each color. */
 @SuppressWarnings("serial")
 public final class StoneCountObserver implements BoardObserver {
-
 	private final int[] counts;
 
 	/** {@code If black stones - white stones >= this}, black can be declared the winner. */
@@ -20,12 +19,20 @@ public final class StoneCountObserver implements BoardObserver {
 	/** {@code If black stones - white stones <= this}, white can be declared the winner. */
 	private final int whiteMercyThreshold;
 
+	/**
+	 * Number of stones captured by [0] black, [1] white
+	 */
+	private final int[] captureCounts;
+
 	public StoneCountObserver(Board board, Scorer scorer) {
 		counts = new int[2];
 		final double komi = scorer.getKomi();
 		final int base = Math.max(board.getCoordinateSystem().getArea() / 6, (int)(2 * komi));
 		blackMercyThreshold = base + (int)(Math.ceil(komi));
 		whiteMercyThreshold = -base + (int)(Math.floor(komi));
+
+		captureCounts = new int[2];
+
 		board.addObserver(this);
 	}
 
@@ -33,6 +40,9 @@ public final class StoneCountObserver implements BoardObserver {
 	public void clear() {
 		counts[0] = 0;
 		counts[1] = 0;
+
+		captureCounts[0] = 0;
+		captureCounts[1] = 1;
 	}
 
 	@Override
@@ -40,11 +50,22 @@ public final class StoneCountObserver implements BoardObserver {
 		final StoneCountObserver original = (StoneCountObserver) that;
 		counts[0] = original.counts[0];
 		counts[1] = original.counts[1];
+
+		captureCounts[0] = original.captureCounts[1];
+		captureCounts[1] = original.captureCounts[1];
 	}
 
 	/** Returns the number of stones of this color. */
 	public int getCount(StoneColor color) {
 		return counts[color.index()];
+	}
+
+	/**
+	 * Returns the number of stones captured by this color
+	 * @param color
+	 */
+	public int getCaptureCount(StoneColor color) {
+		return captureCounts[color.index()];
 	}
 
 	/**
@@ -67,6 +88,8 @@ public final class StoneCountObserver implements BoardObserver {
 		if (location != PASS) {
 			counts[color.index()]++;
 			counts[color.opposite().index()] -= capturedStones.size();
+
+			captureCounts[color.index()] += capturedStones.size();
 		}
 	}
 
