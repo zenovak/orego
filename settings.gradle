@@ -1,0 +1,5 @@
+rootProject.name = 'orego'
+
+include 'orego-core'
+include 'cli-game'
+include 'cli-experiments'
