@@ -32,9 +32,13 @@ public class StoneCountObserverTest {
 				".#...",
 		};
 		board.setUpProblem(diagram, WHITE);
+		assertEquals(0, counter.getCaptureCount(WHITE));
+		assertEquals(0, counter.getCaptureCount(BLACK));
 		board.play("c5");
 		assertEquals(2, counter.getCount(BLACK));
 		assertEquals(6, counter.getCount(WHITE));
+		assertEquals(0, counter.getCaptureCount(BLACK));
+		assertEquals(3, counter.getCaptureCount(WHITE));
 	}
 
 	@Test
@@ -50,9 +54,13 @@ public class StoneCountObserverTest {
 		board.play("c5");
 		assertEquals(2, counter.getCount(BLACK));
 		assertEquals(6, counter.getCount(WHITE));
+		assertEquals(0, counter.getCaptureCount(BLACK));
+		assertEquals(3, counter.getCaptureCount(WHITE));
 		board.clear();
 		assertEquals(0, counter.getCount(BLACK));
 		assertEquals(0, counter.getCount(WHITE));
+		assertEquals(0, counter.getCaptureCount(BLACK));
+		assertEquals(0, counter.getCaptureCount(WHITE));
 	}
 	
 	@Test

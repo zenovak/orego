@@ -42,7 +42,7 @@ public final class StoneCountObserver implements BoardObserver {
 		counts[1] = 0;
 
 		captureCounts[0] = 0;
-		captureCounts[1] = 1;
+		captureCounts[1] = 0;
 	}
 
 	@Override
@@ -62,7 +62,6 @@ public final class StoneCountObserver implements BoardObserver {
 
 	/**
 	 * Returns the number of stones captured by this color
-	 * @param color
 	 */
 	public int getCaptureCount(StoneColor color) {
 		return captureCounts[color.index()];
