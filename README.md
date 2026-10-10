@@ -28,7 +28,7 @@ However, Alphanumeric String notation follows Go text Protocol (GTP) standards, 
 corner, and letters represent columns, and numbers represent rows. In a 19x19 board, the letter `"i"` is skipped to 
 prevent confusion. so (a, ..., g, h, j, ..., t)
 
-![board coordinate alphanumeric notation](docs/attachments/baduk-coordinate-system-alphanumeric-notationc.svg)
+![board coordinate alphanumeric notation](docs/attachments/baduk-coordinate-system-alphanumeric-notation.svg)
 
 
 ## `Board` game board state class
