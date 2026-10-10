@@ -18,6 +18,19 @@ Orego-related publications, go to the [Orego research page](https://sites.google
 
 # Go engine features & terminology
 
+## Coordinate system
+Internally the Board, and Coordinate system class maintains the board with the following orientation, with origin being
+in the top left corner. 
+
+![board coordinate row, col notation](docs/attachments/baduk-coordinate-system-rowcol-notation.svg)
+
+However, Alphanumeric String notation follows Go text Protocol (GTP) standards, the origin sits in the bottom left 
+corner, and letters represent columns, and numbers represent rows. In a 19x19 board, the letter `"i"` is skipped to 
+prevent confusion. so (a, ..., g, h, j, ..., t)
+
+![board coordinate alphanumeric notation](docs/attachments/baduk-coordinate-system-alphanumeric-notationc.svg)
+
+
 ## `Board` game board state class
 In Orego, the board state of a GO game from the first stone placed to infinity is represented by the 
 `edu.lclark.orego.core.Board` class. This class does the following:
