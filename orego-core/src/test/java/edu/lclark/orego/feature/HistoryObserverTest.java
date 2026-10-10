@@ -35,9 +35,11 @@ public class HistoryObserverTest {
 		board.play("c4");
 		board.play("e1");
 		board.play("b2");
+		board.play("pass");
 		assertEquals(at("c4"), observer.get(0));
 		assertEquals(at("e1"), observer.get(1));
 		assertEquals(at("b2"), observer.get(2));
+		assertEquals(at("pass"), observer.get(3));
 	}
 
 	@Test
