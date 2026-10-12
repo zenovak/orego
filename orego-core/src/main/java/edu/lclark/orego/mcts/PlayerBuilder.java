@@ -51,6 +51,7 @@ public final class PlayerBuilder {
 	private int threads;
 
 	private int width;
+	private int sampleSize = 50;
 
 	public PlayerBuilder() {
 		// Default values
@@ -82,6 +83,11 @@ public final class PlayerBuilder {
 		return this;
 	}
 
+	public PlayerBuilder sampleSize(int sampleSize) {
+		this.sampleSize = sampleSize;
+		return this;
+	}
+
 	/** Creates the Player. */
 	public Player build() {
 		log("Beginning to build player");
@@ -99,15 +105,20 @@ public final class PlayerBuilder {
 		final CoordinateSystem coords = board.getCoordinateSystem();
 		TranspositionTable table;
 		log("Creating transposition table");
+		log("Setting sampling size");
+		TreeDescender descender;
 		if (rave) {
 			table = new TranspositionTable(memorySize, new RaveNodeBuilder(coords),
 					coords);
-			result.setTreeDescender(new RaveDescender(board, table, biasDelay));
+			descender = new RaveDescender(board, table, biasDelay);
 		} else {
 			table = new TranspositionTable(memorySize, new SimpleSearchNodeBuilder(coords),
 					coords);
-			result.setTreeDescender(new UctDescender(board, table, biasDelay));
+			descender = new UctDescender(board, table, biasDelay);
 		}
+		descender.setSampleSize(sampleSize);
+		result.setTreeDescender(descender);
+
 		log("Done creating transposition table");
 		TreeUpdater updater;
 		if (lgrf2) {

@@ -6,6 +6,8 @@ package edu.lclark.orego.mcts;
  */
 public interface TreeDescender {
 
+	void setSampleSize(int sampleSize);
+
 	/**
 	 * Returns the best move to make from here when actually playing (as opposed
 	 * to during a playout). We choose the move with the most wins.

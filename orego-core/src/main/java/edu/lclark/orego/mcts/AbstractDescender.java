@@ -16,6 +16,9 @@ public abstract class AbstractDescender implements TreeDescender {
 	/** If our win rate falls below this, resign. */
 	public static final float RESIGN_PARAMETER = 0.1f;
 
+	private int sampleSize = 50;
+	private int sampleCount = 0;
+
 	/**
 	 * Bias is not updated unless there have been this many runs through a node.
 	 */
@@ -30,6 +33,11 @@ public abstract class AbstractDescender implements TreeDescender {
 		this.board = board;
 		this.table = table;
 		this.biasDelay = biasDelay;
+	}
+
+	@Override
+	public void setSampleSize(int sampleSize) {
+		this.sampleSize = sampleSize;
 	}
 
 	@Override
@@ -55,12 +63,14 @@ public abstract class AbstractDescender implements TreeDescender {
 					result = move;
 				}
 			}
-		} while (result != PASS && !board.isLegal(result));
+			sampleCount++;
+		} while (result != PASS && !board.isLegal(result) && sampleCount < sampleSize);
 		// Consider resigning
 		if (root.getWinRate(result) < RESIGN_PARAMETER) {
 			return RESIGN;
 		}
 		log("Selected " + board.getCoordinateSystem().toString(result) + " with " + root.getWins(result) + " wins in " + root.getRuns(result) + " runs");
+		sampleCount = 0;
 		return result;
 	}
 

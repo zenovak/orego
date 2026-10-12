@@ -9,6 +9,11 @@ import edu.lclark.orego.core.Color;
 public final class DoNothing implements TreeDescender, TreeUpdater, OpeningBook {
 
 	@Override
+	public void setSampleSize(int sampleSize) {
+
+	}
+
+	@Override
 	public short bestPlayMove() {
 		// Does nothing
 		return -1;
