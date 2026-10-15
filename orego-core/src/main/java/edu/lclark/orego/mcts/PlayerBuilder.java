@@ -93,6 +93,7 @@ public final class PlayerBuilder {
 		log("Beginning to build player");
 		CopiableStructure copyStructure;
 		if(shape){
+			// TODO SHAPE DATA Usage consumes a lot of memory
 			copyStructure = CopiableStructureFactory.shape(width, komi, shapeBias, shapePatternSize, shapeScalingFactor);
 		} else if(lgrf2){
 			copyStructure = CopiableStructureFactory.lgrfWithBias(width,

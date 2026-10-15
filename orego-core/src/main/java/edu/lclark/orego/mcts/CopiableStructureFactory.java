@@ -200,6 +200,7 @@ public final class CopiableStructureFactory {
 		String sfString = Float.toString(shapeScalingFactor);
 		sfString = sfString.substring(sfString.indexOf('.') + 1);
 		// TODO The shape scaling factor (last parameter below) should not be hard-coded
+		// TODO Loading things like this consumes a lot of memory
 		final ShapeTable shapeTable = new ShapeTable(
 				"/patterns/patterns" + minStones + "stones-SHAPE-sf"
 				+ sfString + ".data", 0.99f);

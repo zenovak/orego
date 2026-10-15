@@ -16,7 +16,7 @@ public abstract class AbstractDescender implements TreeDescender {
 	/** If our win rate falls below this, resign. */
 	public static final float RESIGN_PARAMETER = 0.1f;
 
-	private int sampleSize = 50;
+	private Integer sampleSize;
 	private int sampleCount = 0;
 
 	/**
@@ -63,8 +63,10 @@ public abstract class AbstractDescender implements TreeDescender {
 					result = move;
 				}
 			}
-			sampleCount++;
-		} while (result != PASS && !board.isLegal(result) && sampleCount < sampleSize);
+			if (sampleSize != null) {
+				sampleCount++;
+			}
+		} while (result != PASS && !board.isLegal(result) && (sampleSize == null || sampleCount < sampleSize));
 		// Consider resigning
 		if (root.getWinRate(result) < RESIGN_PARAMETER) {
 			return RESIGN;

@@ -23,7 +23,6 @@ public final class FusekiBook implements OpeningBook {
 	}
 
 	/** Gets the hashMap out of the file. */
-	@SuppressWarnings("boxing")
 	public FusekiBook(String directory) {
 		try (ObjectInputStream in = new ObjectInputStream(
 			getClass().getClassLoader().getResourceAsStream(directory + "/" + "fuseki19.data")
