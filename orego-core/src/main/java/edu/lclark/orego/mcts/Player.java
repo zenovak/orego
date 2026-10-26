@@ -428,6 +428,15 @@ public final class Player {
 		}
 	}
 
+	public void setUpSgfGame(short[] moves) {
+		board.clear();
+		for (final Short move : moves) {
+			if (board.play(move) != OK) {
+				throw new IllegalArgumentException("Sgf contained illegal move");
+			}
+		}
+	}
+
 	/** True if McRunnables attached to this Player should keep running. */
 	public boolean shouldKeepRunning() {
 		return keepRunning;
