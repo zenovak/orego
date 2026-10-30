@@ -9,6 +9,16 @@ public enum Legality {
 	 */
 	GAME_TOO_LONG,
 
+	/**
+	 * While technically legal, the game has already ended. Either by passing or someone resigned
+	 */
+	GAME_OVER,
+
+	/**
+	 * Used for downstream classes if checking for turns or plays needed a turn.
+	 */
+	WRONG_TURN,
+
 	/** Simple ko or superko would be violated. */
 	KO_VIOLATION,
 
