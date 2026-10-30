@@ -12,6 +12,6 @@ public record BoardRecord(CoordinateSystem coords, Color[] boardSet) {
     }
 
     public int getWidth() {
-        return boardSet.length;
+        return coords.getWidth();
     }
 }

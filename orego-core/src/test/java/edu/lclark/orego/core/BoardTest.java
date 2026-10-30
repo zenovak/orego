@@ -267,6 +267,14 @@ public class BoardTest {
 	}
 
 	@Test
+	public void testBoardRecord() {
+		board.play(coords.at(0, 0));
+		var record = board.toBoardRecord();
+		assertEquals(5, record.getWidth());
+		assertEquals(record.getColorAt(0, 0), BLACK);
+	}
+
+	@Test
 	public void testBug1() {
 		assertEquals(OK, board.play("D5"));
 		assertEquals(OK, board.play("A5"));
