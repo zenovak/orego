@@ -14,4 +14,36 @@ public record BoardRecord(CoordinateSystem coords, Color[] boardSet) {
     public int getWidth() {
         return coords.getWidth();
     }
+
+    public int[] toColorPointSet() {
+        var pointSet = new int[boardSet.length];
+        for (int i = 0; i < boardSet.length; i++) {
+            pointSet[i] = boardSet[i].index();
+        }
+        return pointSet;
+    }
+
+    public static BoardRecord fromColorPointSet(int[] colorPointSet) {
+        var width = (int) Math.sqrt(colorPointSet.length);
+        var colorArr = new Color[colorPointSet.length];
+
+        for (int i = 0; i < colorPointSet.length; i++) {
+            colorArr[i] = fromIndex(colorPointSet[i]);
+        }
+        return new BoardRecord(CoordinateSystem.forWidth(width), colorArr);
+    }
+
+    private static Color fromIndex(int index) {
+        switch (index) {
+            case 0:
+                return StoneColor.BLACK;
+            case 1:
+                return StoneColor.WHITE;
+            case 2:
+                return NonStoneColor.VACANT;
+            case 3:
+                return NonStoneColor.OFF_BOARD;
+        }
+        return null;
+    }
 }
