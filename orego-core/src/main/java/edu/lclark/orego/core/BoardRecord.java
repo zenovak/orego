@@ -23,14 +23,13 @@ public record BoardRecord(CoordinateSystem coords, Color[] boardSet) {
         return pointSet;
     }
 
-    public static BoardRecord fromColorPointSet(int[] colorPointSet) {
-        var width = (int) Math.sqrt(colorPointSet.length);
+    public static BoardRecord fromColorPointSet(int boardSize, int[] colorPointSet) {
         var colorArr = new Color[colorPointSet.length];
 
         for (int i = 0; i < colorPointSet.length; i++) {
             colorArr[i] = fromIndex(colorPointSet[i]);
         }
-        return new BoardRecord(CoordinateSystem.forWidth(width), colorArr);
+        return new BoardRecord(CoordinateSystem.forWidth(boardSize), colorArr);
     }
 
     private static Color fromIndex(int index) {

@@ -270,8 +270,23 @@ public class BoardTest {
 	public void testBoardRecord() {
 		board.play(coords.at(0, 0));
 		var record = board.toBoardRecord();
+
 		assertEquals(5, record.getWidth());
+		// boardSet is NOT a simple flat array representation, it also contains extended points
+		// beyond the board bounds for calculations. Do not assume and derive width from it
+		assertNotEquals(record.getWidth(), (int) Math.sqrt(record.boardSet().length));
 		assertEquals(record.getColorAt(0, 0), BLACK);
+	}
+
+	@Test
+	public void testBoardRecordColorPoints() {
+		board.play(coords.at(0, 0));
+		var record = board.toBoardRecord();
+		var colorPoint = record.toColorPointSet();
+		var newRecord = BoardRecord.fromColorPointSet(record.getWidth(), colorPoint);
+
+		assertEquals(record.getWidth(), newRecord.getWidth());
+		assertEquals(record.getColorAt(0, 0), newRecord.getColorAt(0, 0));
 	}
 
 	@Test
