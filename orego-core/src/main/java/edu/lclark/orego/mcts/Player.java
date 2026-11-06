@@ -428,8 +428,12 @@ public final class Player {
 		}
 	}
 
-	public void setUpSgfGame(short[] moves) {
-		board.clear();
+	/**
+	 * Convenient method to fast-forward playing a list of moves. Useful for setting up a mid-game scenario
+	 * while preserving board history. Alternatively without a history, do player.getBoard().setupProblem(...)
+	 * @param moves list of moves in point notation.
+	 */
+	public void setMovesPlayed(short[] moves) {
 		for (final Short move : moves) {
 			if (board.play(move) != OK) {
 				throw new IllegalArgumentException("Sgf contained illegal move");
