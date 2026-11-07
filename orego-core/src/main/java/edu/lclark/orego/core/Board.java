@@ -651,7 +651,8 @@ public final class Board implements Serializable {
 			);
 		}
 
-			clear();
+		clear();
+
 		switch (coords.getWidth()) {
 			case 19: {
 				for (int i = 0; i < handicapSize; i++) {
@@ -690,7 +691,7 @@ public final class Board implements Serializable {
 				return HANDICAP_LOCATIONS.length;
 
 			default:
-				return 0;
+				throw new IllegalArgumentException("Handicaps are not supported on arbitrary board size");
 		}
 	}
 

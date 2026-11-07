@@ -555,10 +555,32 @@ public class BoardTest {
 	}
 
 	@Test
-	public void testSetUpHandicap2() {
-		board = new Board(9);
-		board.setUpHandicap(2);
-		System.out.println(board.toString());
+	public void testSetUpHandicapsOnNonStandardBoard() {
+		assertThrows(IllegalArgumentException.class, () -> board.setUpHandicap(1));
+	}
+
+	@Test
+	public void testSetupHandicapsOnBoard9Turns() {
+		var handiBoard = new Board(9);
+
+		handiBoard.setUpHandicap(1);
+		assertEquals(WHITE, handiBoard.getColorToPlay());
+
+		handiBoard.setUpHandicap(2);
+		assertEquals(WHITE, handiBoard.getColorToPlay());
+
+		handiBoard.setUpHandicap(3);
+		assertEquals(WHITE, handiBoard.getColorToPlay());
+
+		// SPECIAL CASE, setting 0 handicap doesn't mean a reset of the handicap setup.
+		handiBoard.setUpHandicap(0);
+		assertEquals(WHITE, handiBoard.getColorToPlay());
+
+		handiBoard.setUpHandicap(4);
+		assertEquals(WHITE, handiBoard.getColorToPlay());
+
+		handiBoard.clear();
+		assertEquals(BLACK, handiBoard.getColorToPlay());
 	}
 
 	@Test

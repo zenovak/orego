@@ -61,6 +61,18 @@ public class HistoryObserverTest {
 	}
 
 	@Test
+	public void testIgnoreHandicapStones() {
+		// initialize special case test with standard board and friends
+		board = new Board(9);
+		coords = board.getCoordinateSystem();
+		observer = new HistoryObserver(board);
+
+		board.setUpHandicap(1);
+		board.play("a1");
+		assertEquals(at("a1"), observer.get(0));
+	}
+
+	@Test
 	public void testClear() {
 		board.play("c4");
 		board.play("e1");
