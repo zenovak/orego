@@ -237,6 +237,7 @@ public final class Board implements Serializable {
 			}
 		}
 		colorToPlay = tempInitialColor;
+		initialColorToPlay = tempInitialColor;
 	}
 
 	/**
