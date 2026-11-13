@@ -510,12 +510,7 @@ public final class Player {
 			movesList.add(historyObserver.get(i));
 		}
 		// Now replay the moves
-		board.clear();
-
-		// replace handicapStones
-		if (handicap != null)
-			board.setUpHandicap(handicap);
-
+		board.clearPreservingInitialStones();
 		updater.clear();
 		for (int i = 0; i < movesList.size(); i++) {
 			board.play(movesList.get(i));

@@ -66,6 +66,7 @@ public final class Board implements Serializable {
 	 * played.
 	 */
 	private final ShortSet[] initialStones;
+	private StoneColor initialColorToPlay;
 
 	/** The point, if any, where the simple ko rule prohibits play. */
 	private short koPoint;
@@ -116,6 +117,7 @@ public final class Board implements Serializable {
 		neighborsOfCapturedStone = new ShortList(4);
 		observers = new BoardObserver[0];
 		initialStones = new ShortSet[] { new ShortSet(n), new ShortSet(n) };
+		initialColorToPlay = BLACK;
 		clear();
 	}
 
@@ -197,6 +199,7 @@ public final class Board implements Serializable {
 		for (final ShortSet stones : initialStones) {
 			stones.clear();
 		}
+		initialColorToPlay = BLACK;
 		for (final short p : coords.getAllPointsOnBoard()) {
 			points[p].clear();
 			vacantPoints.addKnownAbsent(p);
@@ -215,6 +218,10 @@ public final class Board implements Serializable {
 		}
 	}
 
+	/**
+	 * Clears the board but preserves initial stones and color to play set by
+	 * setUpProblem & setUpHandicap
+	 */
 	public void clearPreservingInitialStones() {
 		final ShortSet[] tempInitial = new ShortSet[] {
 				new ShortSet(coords.getFirstPointBeyondBoard()),
@@ -222,12 +229,14 @@ public final class Board implements Serializable {
 		for (int i = 0; i < 2; i++) {
 			tempInitial[i].addAll(initialStones[i]);
 		}
+		var tempInitialColor = initialColorToPlay;
 		clear();
 		for (int i = 0; i < 2; i++) {
 			for (int j = 0; j < tempInitial[i].size(); j++) {
 				placeInitialStone(i == 0 ? BLACK : WHITE, tempInitial[i].get(j));
 			}
 		}
+		colorToPlay = tempInitialColor;
 	}
 
 	/**
@@ -680,6 +689,7 @@ public final class Board implements Serializable {
 
 
 		setColorToPlay(WHITE);
+		initialColorToPlay = WHITE;
 	}
 
 	public int getMaxHandicap() {
@@ -718,6 +728,7 @@ public final class Board implements Serializable {
 			}
 		}
 		this.colorToPlay = colorToPlay;
+		initialColorToPlay = colorToPlay;
 	}
 
 	@Override
