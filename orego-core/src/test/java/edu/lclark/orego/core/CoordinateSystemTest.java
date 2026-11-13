@@ -27,6 +27,15 @@ public class CoordinateSystemTest {
 		assertEquals(CoordinateSystem.RESIGN, c5.at("RESIGN"));
 	}
 
+    @Test
+    public void testColI() {
+        // Letter i and h are the same square due to game skipping I-column
+        assertEquals(c19.at("i1"), c19.at(18, 7));
+        assertEquals(c19.at("h1"), c19.at(18, 7));
+
+        assertEquals(c19.at("t1"), c19.at(18, 18));
+    }
+
 	@Test
 	public void testRowAndCol() {
 		short p = c5.at(4, 2);
