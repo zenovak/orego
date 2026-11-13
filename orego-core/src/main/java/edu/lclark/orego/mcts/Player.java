@@ -28,6 +28,7 @@ import edu.lclark.orego.util.ShortSet;
 public final class Player {
 
 	private final Board board;
+	private Integer handicap;
 
 	private OpeningBook book;
 
@@ -415,6 +416,7 @@ public final class Player {
 	public void setUpHandicap(int handicapSize) {
 		clear();
 		board.setUpHandicap(handicapSize);
+		handicap = handicapSize;
 	}
 
 	/** Places moves read from an SGF game. */
@@ -508,7 +510,12 @@ public final class Player {
 			movesList.add(historyObserver.get(i));
 		}
 		// Now replay the moves
-		board.clearPreservingInitialStones();
+		board.clear();
+
+		// replace handicapStones
+		if (handicap != null)
+			board.setUpHandicap(handicap);
+
 		updater.clear();
 		for (int i = 0; i < movesList.size(); i++) {
 			board.play(movesList.get(i));

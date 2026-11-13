@@ -107,6 +107,26 @@ public class PlayerTest {
 	}
 
 	@Test
+	public void testUndoWithHandicap() {
+		player = new PlayerBuilder().msecPerMove(100).threads(4).boardWidth(9).memorySize(64)
+				.openingBook(false).build();
+		coords = player.getBoard().getCoordinateSystem();
+
+		player.setUpHandicap(4);
+
+		player.acceptMove(coords.at(0, 1));
+		var expectedBoardState = player.getBoard().toBoardRecord().toColorPointSet();
+		player.acceptMove(coords.at(3, 7));
+		player.undo();
+		var testBoardState = player.getBoard().toBoardRecord().toColorPointSet();
+
+		assertArrayEquals(
+				expectedBoardState,
+				testBoardState
+		);
+	}
+
+	@Test
 	public void testGetPlayouts() {
 		player.clear();
 		for (int i = 0; i < 5; i++) {
